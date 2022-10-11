@@ -4,16 +4,39 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import kr.ac.kumoh.s20200759.w0501carddealer.databinding.ActivityMainBinding
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         //setContentView(R.layout.activity_main)
-        getCardName(29)
-        binding.card1.setImageResource(R.drawable.c_10_of_spades)
+        setContentView(binding.root)
+
+        binding.btnDeal.setOnClickListener {
+            val c = IntArray(5)
+            val res = IntArray(5)
+
+            for (i in 0 until c.size) {
+                c[i] = Random.nextInt(52)
+
+                Log.i("Test", "${c[i]} : " +
+                        "${getCardName(c[i])}")
+
+                res[i] = resources.getIdentifier(
+                    getCardName(c[i]),
+                    "drawable",
+                    packageName
+                )
+            }
+            binding.card1.setImageResource(res[0])
+            binding.card2.setImageResource(res[1])
+            binding.card3.setImageResource(res[2])
+            binding.card4.setImageResource(res[3])
+            binding.card5.setImageResource(res[4])
+
+        }
     }
     private fun getCardName(c: Int): String{
         Log.i("getCardName() : ", (c).toString())
